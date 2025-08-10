@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  github-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: github-runner
+    container_name: github-runner
+    environment:
+      RUNNER_URL: ${RUNNER_URL}
+      RUNNER_TOKEN: ${RUNNER_TOKEN}
+      RUNNER_NAME: ${RUNNER_NAME}
+      LABELS: ${LABELS}
+    restart: unless-stopped
