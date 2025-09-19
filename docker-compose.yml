@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        DOCKER_GID: ${DOCKER_GID:-$(stat -c '%g' /var/run/docker.sock)}
     image: github-runner
     container_name: github-runner
     environment:
@@ -12,4 +14,6 @@ services:
       RUNNER_TOKEN: ${RUNNER_TOKEN}
       RUNNER_NAME: ${RUNNER_NAME}
       LABELS: ${LABELS}
-    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always

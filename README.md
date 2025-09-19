@@ -6,7 +6,7 @@
 
 1. Получите токен регистрации в настройках Self-hosted Runner на GitHub.
 2. Определите переменные окружения:
-   Создайте файл `.env` рядом с `docker-compose.yml` и добавьте переменные окружения:
+   Создайте файл `.env` на уровне с `docker-compose.yml` и добавьте переменные окружения:
 
    ```env
    RUNNER_URL=https://github.com/owner/repo
@@ -17,7 +17,12 @@
 
    `docker-compose` автоматически подхватит значения из `.env`.
 
-3. Соберите и запустите контейнер:
+3. Установите значения для аргумента
+   ```bash
+   export DOCKER_GID=$(stat -c '%g' /var/run/docker.sock)
+   ```
+
+4. Соберите и запустите контейнер:
 
    ```bash
    docker-compose up -d --build
